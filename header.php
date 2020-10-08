@@ -47,7 +47,7 @@
                             <span>Toggle Sidebar</span>
                         </button>
 
-                        <a href="/login.php">
+                        <a href="login.php">
                             <button type="submit" id="loginButton" class="btn btn-info">Login</button>
                         </a>
                     </div>
