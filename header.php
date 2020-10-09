@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -25,15 +28,22 @@
                 <ul class="list-unstyled components">
                     <p>Tucker and Evan</p>
                     <li>
-                        <a href=".">Home</a>
+                        <a href="index.php">Home</a>
                     </li>
-                    <li>
-                        <a href="signup.php">Signup</a>
+
+                    <?php
+                        // Do not show signup button if user is logged in
+                        if(!isset($_SESSION['userId'])) {
+                            echo '<li>
+                            <a href="signup.php">Signup</a>
+                            </li>';
+                        }
+                    ?>
                     <li>
                         <a href="#">About</a>
                     </li>
                     <li>
-                        <a href="/search.php">Search</a>
+                        <a href="search.php">Search</a>
                     </li>
                 </ul>
             </nav>
@@ -47,8 +57,17 @@
                             <span>Toggle Sidebar</span>
                         </button>
 
-                        <a href="login.php">
-                            <button type="submit" id="loginButton" class="btn btn-info">Login</button>
-                        </a>
+                        <?php
+                            if(isset($_SESSION['userId'])){
+                                echo '<a href="includes/logout.inc.php">
+                                        <button type="submit" id="logoutButton" class="btn btn-info">Logout</button>
+                                        </a>';
+                            }
+                            else {
+                                echo '<a href="login.php">
+                                <button type="submit" id="loginButton" class="btn btn-info">Login</button>
+                            </a>';
+                            }
+                        ?>
                     </div>
                 </nav>

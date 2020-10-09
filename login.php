@@ -4,7 +4,7 @@
     <h1>Login</h1>
     <form style="width: 200px;" action="includes/login.inc.php" method="POST">
         <div class="form-group">
-            <input type="email" class="form-control" id="mailuid" name="mailuid" placeholder="Enter email">
+            <input type="text" class="form-control" id="mailuid" name="mailuid" placeholder="Enter email">
         </div>
         <div class="form-group">
             <input type="password" class="form-control" name="password" id="password" placeholder="Password">

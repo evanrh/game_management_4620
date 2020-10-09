@@ -35,6 +35,7 @@
         }
         else {
 
+            // TODO: Check if email is already in use
             // SQL Query to check if username is in DB
             $sql = "SELECT uidUsers FROM users  WHERE uidUsers=?";
             $stmt = mysqli_stmt_init($conn);
