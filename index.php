@@ -3,7 +3,7 @@
 ?>
 
     <?php
-        if(isset($_SESSION['userId'])) {
+        if(isset($_SESSION['username'])) {
             echo "<p>You are logged in!</p>";
         }
         else {

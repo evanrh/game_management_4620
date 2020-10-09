@@ -1,7 +1,7 @@
 <?php
-    require_once "dbh.inc.php";
-
+    require_once "dbh.inc.php";    
     $parent = "../login.php";
+    
     if(isset($_POST['login-submit'])) {
 
         $mailuid = $_POST['mailuid'];
@@ -12,7 +12,7 @@
             exit();
         }
         else {
-            $sql = "SELECT * FROM users WHERE uidUsers=? OR emailUsers=?;";
+            $sql = "SELECT * FROM players WHERE username=? OR email=?;";
             $stmt = mysqli_stmt_init($conn);
 
             if(!mysqli_stmt_prepare($stmt, $sql)) {
@@ -25,17 +25,17 @@
             $result = mysqli_stmt_get_result($stmt);
 
             if($row = mysqli_fetch_assoc($result)) {
-                $pwd_check = password_verify($pwd, $row['pwdUsers']);
+                $pwd_check = password_verify($pwd, $row['pwd']);
                 if($pwd_check == false) {
                     header("Location: " . $parent . "?error=wrongpwd");
                     exit();
                 }
                 else if($pwd_check == true) {
                     session_start();
-                    $_SESSION['userId'] = $row['idUsers'];
-                    $_SESSION['userUid'] = $row['uidUsers'];
+                    $_SESSION['userId'] = $row['uid'];
+                    $_SESSION['username'] = $row['username'];
 
-                    header("Location: " . $parent . "?login=success");
+                    header("Location: ../index.php?login=success");
                     exit();
                 }
                 else {
@@ -44,7 +44,7 @@
                 }
             }
             else {
-                header("Location: " . $parent . "error=nouser");
+                header("Location: " . $parent . "?error=nouser");
                 exit();
             }
         }

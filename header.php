@@ -33,9 +33,19 @@
 
                     <?php
                         // Do not show signup button if user is logged in
-                        if(!isset($_SESSION['userId'])) {
+                        if(!isset($_SESSION['username'])) {
                             echo '<li>
                             <a href="signup.php">Signup</a>
+                            </li>';
+                        }
+                        else {
+                            // Insert profile link
+                            echo '<li>
+                            <a href="profile.php">Profile</a>
+                            </li>';
+                            // Insert Score Upload Link
+                            echo '<li>
+                            <a href="upload.php">Upload Score</a>
                             </li>';
                         }
                     ?>
@@ -58,7 +68,7 @@
                         </button>
 
                         <?php
-                            if(isset($_SESSION['userId'])){
+                            if(isset($_SESSION['username'])){
                                 echo '<a href="includes/logout.inc.php">
                                         <button type="submit" id="logoutButton" class="btn btn-info">Logout</button>
                                         </a>';

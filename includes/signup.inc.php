@@ -37,7 +37,7 @@
 
             // TODO: Check if email is already in use
             // SQL Query to check if username is in DB
-            $sql = "SELECT uidUsers FROM users  WHERE uidUsers=?";
+            $sql = "SELECT username FROM players WHERE username=?";
             $stmt = mysqli_stmt_init($conn);
 
             if(!mysqli_stmt_prepare($stmt, $sql)) {
@@ -55,7 +55,7 @@
                     exit();
                 }
 
-                $sql = "INSERT INTO users (uidUsers, emailUsers, pwdUsers) VALUES (?, ?, ?)";
+                $sql = "INSERT INTO players (username, email, pwd) VALUES (?, ?, ?)";
                 if(!mysqli_stmt_prepare($stmt, $sql)) {
                     header("Location ../signup.php?error=sqlerror");
                     exit();

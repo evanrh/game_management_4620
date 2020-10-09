@@ -1,7 +1,7 @@
 <?php
     $server_name = "mysql-server";
     $db_user = "root";
-    $db_name = "login_system";
+    $db_name = "game_users";
     $db_pass = "secret";
 
     $conn = new mysqli($server_name, $db_user, $db_pass, $db_name);
