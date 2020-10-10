@@ -33,11 +33,7 @@
 
                     <?php
                         // Do not show signup button if user is logged in
-                        if(!isset($_SESSION['username'])) {
-                            echo '<li>
-                            <a href="signup.php">Signup</a>
-                            </li>';
-                        }
+                        if(!isset($_SESSION['username'])) {}
                         else {
                             // Insert profile link
                             echo '<li>
