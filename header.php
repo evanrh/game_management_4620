@@ -76,7 +76,10 @@
                             else {
                                 echo '<a href="login.php">
                                 <button type="submit" id="loginButton" class="btn btn-info">Login</button>
-                            </a>';
+                            	</a>';
+				echo '<a href="signup.php">
+				<button type="submit" id="signupButton" class="btn btn-info">Signup</button>
+				</a>';
                             }
                         ?>
                     </div>
