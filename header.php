@@ -63,6 +63,7 @@
                             <span>Toggle Sidebar</span>
                         </button>
 
+                        <div class="col-md-2">
                         <?php
                             if(isset($_SESSION['username'])){
                                 echo '<a href="includes/logout.inc.php">
@@ -73,10 +74,11 @@
                                 echo '<a href="login.php">
                                 <button type="submit" id="loginButton" class="btn btn-info">Login</button>
                             	</a>';
-				echo '<a href="signup.php">
-				<button type="submit" id="signupButton" class="btn btn-info">Signup</button>
-				</a>';
+				                echo '<a href="signup.php">
+				                <button type="submit" id="signupButton" class="btn btn-info">Signup</button>
+				                </a>';
                             }
                         ?>
+                        </div>
                     </div>
                 </nav>
