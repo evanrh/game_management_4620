@@ -13,18 +13,18 @@
         }
         else {
             $sql = "SELECT * FROM players WHERE username=? OR email=?;";
-            $stmt = mysqli_stmt_init($conn);
+            $stmt = $conn->stmt_init();
 
-            if(!mysqli_stmt_prepare($stmt, $sql)) {
+            if(!$stmt->prepare($sql)) {
                 header("Location: " . $parent . "?error=sqlerror");
                 exit();
             }
 
-            mysqli_stmt_bind_param($stmt, "ss", $mailuid, $mailuid);
-            mysqli_stmt_execute($stmt);
-            $result = mysqli_stmt_get_result($stmt);
+            $stmt->bind_param("ss", $mailuid, $mailuid);
+            $stmt->execute();
+            $result = $stmt->get_result();
 
-            if($row = mysqli_fetch_assoc($result)) {
+            if($row = $result->fetch_assoc()) {
                 $pwd_check = password_verify($pwd, $row['pwd']);
                 if($pwd_check == false) {
                     header("Location: " . $parent . "?error=wrongpwd");

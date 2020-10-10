@@ -38,17 +38,17 @@
             // TODO: Check if email is already in use
             // SQL Query to check if username is in DB
             $sql = "SELECT username FROM players WHERE username=?";
-            $stmt = mysqli_stmt_init($conn);
+            $stmt = $conn->stmt_init();
 
-            if(!mysqli_stmt_prepare($stmt, $sql)) {
+            if(!$stmt->prepare($sql)) {
                 header("Location ../signup.php?error=sqlerror");
                 exit();
             }
             else {
-                mysqli_stmt_bind_param($stmt, "s", $username);
-                mysqli_stmt_execute($stmt);
-                mysqli_stmt_store_result($stmt);
-                $result_check = mysqli_stmt_num_rows($stmt);
+                $stmt->bind_param("s", $username);
+                $stmt->execute();
+                $stmt->store_result();
+                $result_check = $stmt->num_rows();
 
                 if($result_check > 0) {
                     header("Location: ../signup.php?error=usernametaken&email=" . $email);
@@ -56,21 +56,21 @@
                 }
 
                 $sql = "INSERT INTO players (username, email, pwd) VALUES (?, ?, ?)";
-                if(!mysqli_stmt_prepare($stmt, $sql)) {
+                if(!$stmt->prepare($sql)) {
                     header("Location ../signup.php?error=sqlerror");
                     exit();
                 }
 
                 $pwd_hash = password_hash($pwd, PASSWORD_DEFAULT);
-                mysqli_stmt_bind_param($stmt, "sss", $username, $email, $pwd_hash);
-                mysqli_stmt_execute($stmt);
+                $stmt->bind_param("sss", $username, $email, $pwd_hash);
+                $stmt->execute();
                 header("Location: ../signup.php?signup=success");
                 exit();
             }
         }
 
-        mysqli_stmt_close($stmt);
-        mysqli_close($conn);
+        $stmt->close($stmt);
+        $conn->close();
     }
 
 else {
