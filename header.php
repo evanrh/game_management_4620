@@ -1,5 +1,12 @@
 <?php
+    // Load session vars and load environment vars from dotenv
     session_start();
+
+    require_once "composer/vendor/autoload.php";
+
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+    $dotenv->load();
+
 ?>
 <!DOCTYPE html>
 <html>

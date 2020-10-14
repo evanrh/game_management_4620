@@ -1,7 +1,6 @@
 <?php
-    require_once "dbh.inc.php";    
-    $parent = "../login.php";
-    
+    require_once "../composer/vendor/autoload.php";
+    require_once "dbh.inc.php";        
     if(isset($_POST['login-submit'])) {
 
         $mailuid = $_POST['mailuid'];
@@ -12,7 +11,8 @@
             exit();
         }
         else {
-            $sql = "SELECT * FROM players WHERE username=? OR email=?;";
+            // Select info for password comparison and session storage
+            $sql = "SELECT uid, username, pwd FROM players WHERE username=? OR email=?;";
             $stmt = $conn->stmt_init();
 
             if(!$stmt->prepare($sql)) {
@@ -20,20 +20,25 @@
                 exit();
             }
 
+            // Bind params for username and email
             $stmt->bind_param("ss", $mailuid, $mailuid);
             $stmt->execute();
-            $result = $stmt->get_result();
 
-            if($row = $result->fetch_assoc()) {
-                $pwd_check = password_verify($pwd, $row['pwd']);
+
+            $stmt->bind_result($uid, $username, $passwd);
+
+            // Fetch data
+            while($stmt->fetch()) {}
+            if($stmt->num_rows()) {
+                $pwd_check = password_verify($pwd, $passwd);
                 if($pwd_check == false) {
                     header("Location: " . $parent . "?error=wrongpwd");
                     exit();
                 }
                 else if($pwd_check == true) {
                     session_start();
-                    $_SESSION['userId'] = $row['uid'];
-                    $_SESSION['username'] = $row['username'];
+                    $_SESSION['userId'] = $uid;
+                    $_SESSION['username'] = $username;
 
                     header("Location: ../index.php?login=success");
                     exit();
