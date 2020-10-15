@@ -38,38 +38,37 @@
             // TODO: Check if email is already in use
             // SQL Query to check if username is in DB
             $sql = "SELECT username FROM players WHERE username=?";
-            $stmt = $conn->stmt_init();
 
-            if(!$stmt->prepare($sql)) {
+            if(!$stmt = $conn->prepare($sql)) {
                 header("Location ../signup.php?error=sqlerror");
                 exit();
             }
             else {
-                $stmt->bind_param("s", $username);
+                $stmt->bindParam(1, $username, PDO::PARAM_STR);
                 $stmt->execute();
-                $stmt->store_result();
-                $result_check = $stmt->num_rows();
 
-                if($result_check > 0) {
+                if($stmt->rowCount() > 0) {
                     header("Location: ../signup.php?error=usernametaken&email=" . $email);
                     exit();
                 }
 
                 $sql = "INSERT INTO players (username, email, pwd) VALUES (?, ?, ?)";
-                if(!$stmt->prepare($sql)) {
+                if(!$stmt = $conn->prepare($sql)) {
                     header("Location ../signup.php?error=sqlerror");
                     exit();
                 }
 
                 $pwd_hash = password_hash($pwd, PASSWORD_DEFAULT);
-                $stmt->bind_param("sss", $username, $email, $pwd_hash);
+                $stmt->bindParam(1, $username, PDO::PARAM_STR);
+                $stmt->bindParam(2, $email, PDO::PARAM_STR);
+                $stmt->bindParam(3, $pwd_hash, PDO::PARAM_STR);
                 $stmt->execute();
                 header("Location: ../signup.php?signup=success");
                 exit();
             }
         }
 
-        $stmt->close($stmt);
+        $stmt->close();
         $conn->close();
     }
 

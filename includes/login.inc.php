@@ -13,32 +13,28 @@
         else {
             // Select info for password comparison and session storage
             $sql = "SELECT uid, username, pwd FROM players WHERE username=? OR email=?;";
-            $stmt = $conn->stmt_init();
 
-            if(!$stmt->prepare($sql)) {
+            if(!$stmt = $conn->prepare($sql)) {
                 header("Location: " . $parent . "?error=sqlerror");
                 exit();
             }
 
             // Bind params for username and email
-            $stmt->bind_param("ss", $mailuid, $mailuid);
+            $stmt->bindParam(1, $mailuid, PDO::PARAM_STR);
+            $stmt->bindParam(2, $mailuid, PDO::PARAM_STR);
             $stmt->execute();
 
-
-            $stmt->bind_result($uid, $username, $passwd);
-
             // Fetch data
-            while($stmt->fetch()) {}
-            if($stmt->num_rows()) {
-                $pwd_check = password_verify($pwd, $passwd);
+            if($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $pwd_check = password_verify($pwd, $row['pwd']);
                 if($pwd_check == false) {
                     header("Location: " . $parent . "?error=wrongpwd");
                     exit();
                 }
                 else if($pwd_check == true) {
                     session_start();
-                    $_SESSION['userId'] = $uid;
-                    $_SESSION['username'] = $username;
+                    $_SESSION['userId'] = $row['uid'];
+                    $_SESSION['username'] = $row['username'];
 
                     header("Location: ../index.php?login=success");
                     exit();
