@@ -60,6 +60,25 @@
                     </li>
 
                         <?php } ?>
+                        <?php
+                            if($_SESSION['admin']) {
+                                // Show admin links
+                        ?>
+                    <li>
+                        <a href="#adminSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Admin Links</a>
+                        <ul class="collapse list-unstyled" id="adminSubmenu">
+                            <li>
+                                <a href="admin/">Admin Home</a>
+                            </li>
+                            <li>
+                                <a href="admin/backup.php">Backup</a>
+                            </li>
+                            <li>
+                                <a href="admin/users.php">User Modification</a>
+                            </li>
+                        </ul>
+                    </li>
+                        <?php } ?>
                     <li>
                         <a href="#">About</a>
                     </li>

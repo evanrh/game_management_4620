@@ -12,7 +12,7 @@
         }
         else {
             // Select info for password comparison and session storage
-            $sql = "SELECT uid, username, pwd FROM players WHERE username=? OR email=?;";
+            $sql = "SELECT uid, username, pwd, admin FROM players WHERE username=? OR email=?;";
 
             if(!$stmt = $conn->prepare($sql)) {
                 header("Location: " . $parent . "?error=sqlerror");
@@ -26,6 +26,7 @@
 
             // Fetch data
             if($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+
                 $pwd_check = password_verify($pwd, $row['pwd']);
                 if($pwd_check == false) {
                     header("Location: " . $parent . "?error=wrongpwd");
@@ -35,7 +36,8 @@
                     session_start();
                     $_SESSION['userId'] = $row['uid'];
                     $_SESSION['username'] = $row['username'];
-
+                    $_SESSION['admin'] = $row['admin'];
+                    
                     header("Location: ../index.php?login=success");
                     exit();
                 }

@@ -1,7 +1,8 @@
-<?
+<?php
     require_once "dbh.inc.php";
     $parent = "../profile_update.php";
     session_start();
+    
     function exitWithError($error) {
         header("Location: " . $parent . "?error=" . $error);
         exit();
@@ -24,7 +25,7 @@
             if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 exitWithError("invalidmail");
             }
-            
+
             if(!$stmt = $conn->prepare(sprintf($sql, "email"))) {
                 exitWithError("sqlerror");
             }
