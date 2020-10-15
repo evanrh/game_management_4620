@@ -1,23 +1,22 @@
 <?php
-    session_start();
+    // Includes call for session_start()
+    require_once "header.php";
+
     if(!isset($_SESSION['userId'])) {
         header("Location: index.php");
         exit();
     }
 
-    require_once "header.php";
     require_once "includes/dbh.inc.php";
 ?>
     <h2>Profile</h2>
     <?php
         // Display dynamic information
         $sql = "SELECT * FROM players WHERE username=?";
-        $stmt = mysqli_stmt_init($conn);
-        mysqli_stmt_prepare($stmt, $sql);
-        mysqli_stmt_bind_param($stmt, "s", $_SESSION['username']);
-        mysqli_stmt_execute($stmt);
-        $result = mysqli_stmt_get_result($stmt);
-        $row = mysqli_fetch_assoc($result);
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(1, $_SESSION['username'], PDO::PARAM_STR);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
     ?>
     <form>
     <div class="form-group row">
@@ -47,7 +46,7 @@
     <div class="form-group row">
         <label for="address" class="col-sm-2 col-form-label">Address</label>
         <div class="col-sm-6">
-            <input type="text" readonly class="form-control-plaintext" id="address" value=<?php echo $_SESSION['address']?>>
+            <input type="text" readonly class="form-control-plaintext" id="address" value=<?php echo $row['address']?>>
         </div>
     </div>
     <a href="profile_update.php">
