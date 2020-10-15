@@ -12,9 +12,9 @@
     <h2>Profile</h2>
     <?php
         // Display dynamic information
-        $sql = "SELECT * FROM players WHERE username=?";
+        $sql = "SELECT * FROM players WHERE uid=?";
         $stmt = $conn->prepare($sql);
-        $stmt->bindParam(1, $_SESSION['username'], PDO::PARAM_STR);
+        $stmt->bindParam(1, $_SESSION['userId'], PDO::PARAM_STR);
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
     ?>
@@ -47,6 +47,12 @@
         <label for="address" class="col-sm-2 col-form-label">Address</label>
         <div class="col-sm-6">
             <input type="text" readonly class="form-control-plaintext" id="address" value=<?php echo $row['address']?>>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="age" class="col-sm-2 col-form-label">Age</label>
+        <div class="col-sm-6">
+            <input type="text" readonly class="form-control-plaintext" id="age" value=<?php echo $row['age']?>>
         </div>
     </div>
     <a href="profile_update.php">

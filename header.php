@@ -42,16 +42,24 @@
                         // Do not show signup button if user is logged in
                         if(!isset($_SESSION['username'])) {}
                         else {
-                            // Insert profile link
-                            echo '<li>
-                            <a href="profile.php">Profile</a>
-                            </li>';
-                            // Insert Score Upload Link
-                            echo '<li>
-                            <a href="upload.php">Upload Score</a>
-                            </li>';
-                        }
-                    ?>
+                            ?>
+                            
+                    <li>
+                        <a href="#profileSubmenu" data-toggle="collapse" aria-expaneded="false" class="dropdown-toggle">Profile</a>
+                        <ul class="collapse list-unstyled" id="profileSubmenu">
+                            <li>
+                                <a href="profile.php">View Profile</a>
+                            </li>
+                            <li>
+                                <a href="profile_update.php">Update Profile</a>
+                            </li>
+                        </ul>    
+                    </li>
+                    <li>
+                        <a href="upload.php">Upload Score</a>
+                    </li>
+
+                        <?php } ?>
                     <li>
                         <a href="#">About</a>
                     </li>

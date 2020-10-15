@@ -1,5 +1,6 @@
 <?php
 
+    $parent = "../signup.php";
     if( isset($_POST['signup-submit'])) {
         require 'dbh.inc.php';
         
@@ -10,27 +11,27 @@
         
         // One of the prompts was not filled in
         if( empty($username) || empty($email) || empty($pwd) || empty($pwd_repeat)) {
-            header("Location: ../signup.php?error=emptyfields&email=" . $email . "&username=" . $username);
+            header("Location: " . $parent . "?error=emptyfields&email=" . $email . "&username=" . $username);
             exit();
         }
         // Invalid email and username
         else if(!filter_var($email, FILTER_VALIDATE_EMAIL) && !preg_match("/^[a-zA-Z0-9]*$/",$username)) {
-            header("Location: ../signup.php?error=invalidmailuser");
+            header("Location: " . $parent . "?error=invalidmailuser");
             exit();
         }
         // Invalid email
         else if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            header("Location: ../signup.php?error=invalidmail&username=" . $username);
+            header("Location: " . $parent . "?error=invalidmail&username=" . $username);
             exit();
         }
         // Invalid username
         else if(!preg_match("/^[a-zA-Z0-9]*$/",$username)) {
-            header("Location: ../signup.php?error=invalidusername&email=" . $email);
+            header("Location: " . $parent . "?error=invalidusername&email=" . $email);
             exit();
         }
         // Password does not match the repeat
         else if($pwd !== $pwd_repeat) {
-            header("Location: ../signup.php?error=passwordcheck&email=" . $email . "&username=" . $username);
+            header("Location: " . $parent . "?error=passwordcheck&email=" . $email . "&username=" . $username);
             exit();
         }
         else {
@@ -40,7 +41,7 @@
             $sql = "SELECT username FROM players WHERE username=?";
 
             if(!$stmt = $conn->prepare($sql)) {
-                header("Location ../signup.php?error=sqlerror");
+                header("Location " . $parent . "?error=sqlerror");
                 exit();
             }
             else {
@@ -48,13 +49,13 @@
                 $stmt->execute();
 
                 if($stmt->rowCount() > 0) {
-                    header("Location: ../signup.php?error=usernametaken&email=" . $email);
+                    header("Location: " . $parent . "?error=usernametaken&email=" . $email);
                     exit();
                 }
 
                 $sql = "INSERT INTO players (username, email, pwd) VALUES (?, ?, ?)";
                 if(!$stmt = $conn->prepare($sql)) {
-                    header("Location ../signup.php?error=sqlerror");
+                    header("Location " . $parent . "?error=sqlerror");
                     exit();
                 }
 
@@ -63,7 +64,7 @@
                 $stmt->bindParam(2, $email, PDO::PARAM_STR);
                 $stmt->bindParam(3, $pwd_hash, PDO::PARAM_STR);
                 $stmt->execute();
-                header("Location: ../signup.php?signup=success");
+                header("Location: " . $parent . "?signup=success");
                 exit();
             }
         }
@@ -73,6 +74,6 @@
     }
 
 else {
-    header("Location: ../signup.php");
+    header("Location: " . $parent);
     exit();
 }
