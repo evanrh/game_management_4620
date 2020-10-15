@@ -46,7 +46,7 @@
     <div class="form-group row">
         <label for="address" class="col-sm-2 col-form-label">Address</label>
         <div class="col-sm-6">
-            <input type="text" readonly class="form-control-plaintext" id="address" value=<?php echo $_row['address']?>>
+            <input type="text" readonly class="form-control-plaintext" id="address" value=<?php echo $row['address']?>>
         </div>
     </div>
     <a href="profile_update.php">
