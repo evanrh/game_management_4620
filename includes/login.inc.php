@@ -1,6 +1,9 @@
 <?php
     require_once "../composer/vendor/autoload.php";
-    require_once "dbh.inc.php";        
+    require_once "dbh.inc.php";
+
+    $parent = "../login.php";
+    
     if(isset($_POST['login-submit'])) {
 
         $mailuid = $_POST['mailuid'];
