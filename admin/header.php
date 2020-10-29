@@ -2,9 +2,9 @@
     // Load session vars and load environment vars from dotenv
     session_start();
 
-    require_once "composer/vendor/autoload.php";
+    require_once "../composer/vendor/autoload.php";
 
-    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . "/..");
     $dotenv->load();
 
 ?>
@@ -19,7 +19,7 @@
         <!-- CSS only -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"/>
         
-        <link rel="stylesheet" href="index.css"/>
+        <link rel="stylesheet" href="../index.css"/>
         <!-- Font Awesome JS -->
         <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
         <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
@@ -45,26 +45,18 @@
                             ?>
                             
                     <li>
-                        <a href="#profileSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Profile</a>
+                        <a href="#profileSubmenu" data-toggle="collapse" aria-expaneded="false" class="dropdown-toggle">Profile</a>
                         <ul class="collapse list-unstyled" id="profileSubmenu">
                             <li>
-                                <a href="profile.php">View Profile</a>
+                                <a href="../profile.php">View Profile</a>
                             </li>
                             <li>
-                                <a href="profile_update.php">Update Profile</a>
+                                <a href="../profile_update.php">Update Profile</a>
                             </li>
                         </ul>    
                     </li>
                     <li>
-                        <a href="#scoresSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Scores</a>
-                        <ul class="collapse list-unstyled" id="scoresSubmenu">
-                            <li>
-                                <a href="upload.php">Upload Score</a>
-                            </li>
-                            <li>
-                                <a href="view-scores.php">View My Scores</a>
-                            </li>
-                        </ul>
+                        <a href="upload.php">Upload Score</a>
                     </li>
 
                         <?php } ?>
@@ -76,13 +68,13 @@
                         <a href="#adminSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Admin Links</a>
                         <ul class="collapse list-unstyled" id="adminSubmenu">
                             <li>
-                                <a href="admin/">Admin Home</a>
+                                <a href="./">Admin Home</a>
                             </li>
                             <li>
-                                <a href="admin/backup.php">Backup</a>
+                                <a href="./backup.php">Backup</a>
                             </li>
                             <li>
-                                <a href="admin/users.php">User Modification</a>
+                                <a href="./users.php">User Modification</a>
                             </li>
                         </ul>
                     </li>
@@ -91,7 +83,7 @@
                         <a href="#">About</a>
                     </li>
                     <li>
-                        <a href="search.php">Search</a>
+                        <a href="../search.php">Search</a>
                     </li>
                 </ul>
             </nav>
@@ -108,7 +100,7 @@
                         <div class="col-md-2">
                         <?php
                             if(isset($_SESSION['username'])){
-                                echo '<a href="includes/logout.inc.php">
+                                echo '<a href="../includes/logout.inc.php">
                                         <button type="submit" id="logoutButton" class="btn btn-info">Logout</button>
                                         </a>';
                             }
