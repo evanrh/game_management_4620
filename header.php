@@ -18,7 +18,8 @@
         <title>Game Users Management</title>
         <!-- CSS only -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"/>
-        
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
         <link rel="stylesheet" href="index.css"/>
         <!-- Font Awesome JS -->
         <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
@@ -62,7 +63,7 @@
                                 <a href="upload.php">Upload Score</a>
                             </li>
                             <li>
-                                <a href="view-scores.php">View My Scores</a>
+                                <a href="view_scores.php">View My Scores</a>
                             </li>
                         </ul>
                     </li>

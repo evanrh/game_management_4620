@@ -111,7 +111,9 @@ ul ul a {
     background: #6d7fcc;
 }
 
-
+table {
+    text-align: center;
+}
 @media (max-width: 768px) {
     #sidebar {
         margin-left: -250px;

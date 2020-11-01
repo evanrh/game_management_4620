@@ -8,25 +8,40 @@
 
     $stmt = $conn->prepare($sql);
     $stmt->execute();
+
 ?>
     <h1>Score Entry</h1>
-    <form method="POST">
-        
-        <div class="form-group row">
-            <select class="form-control col-md-2">
-                <?php
-                    $i = 0;
-                    // Populate list with games in database
-                    while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                        echo "<option value=$i>$row[title]</option>";
-                        $i += 1;
-                    }
-                ?>
-            </select>
-            <input type="text" class="form-control col-md-2" id="score-entry">
+    <?php
+        if(isset($_GET['error'])) {
+            $value = '';
+            $error = $_GET['error'];
+            switch($error) {
+                case 'sqlerror':
+                    $value = 'Error in database';
+                    break;
+                case 'nogame':
+                    $value = 'Game not in database';
+                    break;
+                default:
+                    $value = 'Error!';
+                    break;
+            }
+            echo "<p class='alert alert-danger col-md-4'>$value</p>";
+        }
+        else if(isset($_GET['success'])) {
+            echo "<p class='alert alert-success col-md-4'>Score added successfully!</p>";
+        }
+        ?>
+    <form method="POST" action="includes/upload.inc.php">
+
+        <div class="form-group">
+            <label for="game-name">Game Name</label>
+            <input type="text" class="form-control col-md-2" name="game-name" id="game-name" required>
+            <label for="score-entry">Score</label>
+            <input type="number" min="1" step="1" class="form-control col-md-2" name="score-entry" id="score-entry" required>
         </div>
-        <div class="form-group row">
-            <button type="button" class="btn btn-primary">Submit Score</button>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary" name="submit-score" id="submit-score">Submit Score</button>
         </div>
     </form>
 <?php

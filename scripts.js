@@ -11,3 +11,16 @@ $(document).ready( function() {
         });
     })
 });
+
+// Game Score Entry Search AJAX
+$("#game-name").keyup(function() {
+    var title = $(this)[0].value;
+
+    if (title !== '') {
+        $.post('./includes/upload.inc.php', {'title': title}, function(response) {
+            $('#game-name').autocomplete({
+                source: response
+            });
+        });
+    }
+});
