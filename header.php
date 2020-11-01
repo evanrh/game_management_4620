@@ -1,5 +1,6 @@
 <?php
     // Load session vars and load environment vars from dotenv
+    session_save_path('./sessions/');
     session_start();
 
     require_once "composer/vendor/autoload.php";

@@ -1,6 +1,7 @@
 <?php
-    session_start();
 
+    session_save_path('../sessions/');
+    session_start();
     require_once "../composer/vendor/autoload.php";
 
     $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . "/..");
