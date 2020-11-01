@@ -114,6 +114,24 @@ ul ul a {
 table {
     text-align: center;
 }
+
+
+#gamesButtons {
+    display: flex;
+    flex-direction: column;
+    max-height: 20vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 40vh;
+    align-items: center;
+}
+
+#gamesButtons .row {
+    width: 20vw;
+    padding: 10px;
+    text-align: center;
+}
+
 @media (max-width: 768px) {
     #sidebar {
         margin-left: -250px;

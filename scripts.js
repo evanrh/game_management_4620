@@ -7,6 +7,10 @@ $(document).ready( function() {
             console.log(response);
             if(response['message'] === 'Game added!') {
                 $('#admingames').append(`<li>${title}</li>`);
+                document.getElementById('alertMessages').innerHTML = `<p class="alert alert-success">${response["message"]}</p>`
+            }
+            else {
+                document.getElementById('alertMessages').innerHTML = `<p class="alert alert-danger">${response['message']}</p>`;
             }
         });
     })
@@ -24,3 +28,8 @@ $("#game-name").keyup(function() {
         });
     }
 });
+
+$("#gamesButtons .row .btn").click(function() {
+    var title = $(this)[0].innerText;
+    document.getElementById('game-name').value = title;
+})

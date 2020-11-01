@@ -1,4 +1,5 @@
 <?php
+    session_save_path('../sessions');
     session_start();
 
     if(!isset($_SESSION['admin']) || !$_SESSION['admin']) {
@@ -27,6 +28,9 @@
         </ul>
     </div>
     <div style="padding: 20px; border-left: 2px solid black;">
+        <h1>Add Game</h1>
+        <div id="alertMessages">
+        </div>
         <form method="POST">
             <div class="form-group row">
                 <input type="text" class="form-control" id="newtitle" name="newgame">

@@ -32,18 +32,31 @@
             echo "<p class='alert alert-success col-md-4'>Score added successfully!</p>";
         }
         ?>
-    <form method="POST" action="includes/upload.inc.php">
+    <div class="flex" style="display: flex; padding: 10px;">
+        <form method="POST" action="includes/upload.inc.php">
 
-        <div class="form-group">
-            <label for="game-name">Game Name</label>
-            <input type="text" class="form-control col-md-2" name="game-name" id="game-name" required>
-            <label for="score-entry">Score</label>
-            <input type="number" min="1" step="1" class="form-control col-md-2" name="score-entry" id="score-entry" required>
+            <div class="form-group">
+                <label for="game-name">Game Name</label>
+                <input type="text" class="form-control col-md-12" name="game-name" id="game-name" required> 
+                <label for="score-entry">Score</label>
+                <input type="number" min="1" step="1" class="form-control col-md-12" name="score-entry" id="score-entry" required>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary" name="submit-score" id="submit-score">Submit Score</button>
+            </div>
+        </form>
+        <div id="scoreUploadRight" style="margin-left: 10px; border-left: 1px solid black;">
+            <div id="gamesButtons">
+            <?php
+                while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    echo "<div class='row'>";
+                    echo "<button type='button' class='btn btn-outline-secondary'>$row[title]</button>";
+                    echo "</div>";
+                }
+            ?>
+            </div>
         </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary" name="submit-score" id="submit-score">Submit Score</button>
-        </div>
-    </form>
+    </div>
 <?php
     require_once 'footer.php';
 ?>

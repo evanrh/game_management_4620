@@ -90,7 +90,7 @@
                     </li>
                         <?php } ?>
                     <li>
-                        <a href="#">About</a>
+                        <a href="leaderboards.php">Leaderboards</a>
                     </li>
                     <li>
                         <a href="search.php">Search</a>
