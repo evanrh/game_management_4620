@@ -1,6 +1,7 @@
 <?php
     require_once "dbh.inc.php";
     $parent = "../profile_update.php";
+    session_save_path('../sessions/');
     session_start();
     
     function exitWithError($error) {
