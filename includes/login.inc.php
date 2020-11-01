@@ -36,6 +36,7 @@
                     exit();
                 }
                 else if($pwd_check == true) {
+                    session_save_path('../sessions/');
                     session_start();
                     $_SESSION['userId'] = $row['uid'];
                     $_SESSION['username'] = $row['username'];

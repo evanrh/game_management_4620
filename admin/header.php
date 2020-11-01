@@ -63,7 +63,7 @@
 
                         <?php } ?>
                         <?php
-                            if($_SESSION['admin']) {
+                            if(isset($_SESSION['admin']) && $_SESSION['admin']) {
                                 // Show admin links
                         ?>
                     <li>
