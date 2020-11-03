@@ -132,6 +132,18 @@ table {
     text-align: center;
 }
 
+#leaderboard {
+    display: none;
+}
+
+#leaderboard table thead {
+    background-color: gray;
+}
+
+#leaderboard table tbody {
+    background-color: lightgray;
+}
+
 @media (max-width: 768px) {
     #sidebar {
         margin-left: -250px;
