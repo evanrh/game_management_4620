@@ -136,6 +136,11 @@ table {
     display: none;
 }
 
+#lb-header {
+    display: table;
+    margin: 0 auto;
+}
+
 #leaderboard table thead {
     background-color: gray;
 }
