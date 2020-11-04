@@ -58,7 +58,15 @@
                         </ul>    
                     </li>
                     <li>
-                        <a href="upload.php">Upload Score</a>
+                        <a href="#scoresSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Scores</a>
+                        <ul class="collapse list-unstyled" id="scoresSubmenu">
+                            <li>
+                                <a href="../upload.php">Upload Score</a>
+                            </li>
+                            <li>
+                                <a href="../view_scores.php">View My Scores</a>
+                            </li>
+                        </ul>
                     </li>
 
                         <?php } ?>

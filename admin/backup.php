@@ -19,17 +19,21 @@
     $result = $conn->query($sql);
 ?>
     <h1>Backup Database</h1>
+    <h2>Tables</h2>
+    <p>Please select the tables you would like to backup</p>
     <form id="backup-form" method="POST" action="./includes/backup.inc.php" target="_blank">
+        <div class="form-check">
         <?php
-            $i = 0;
+            $classes = "form-check-input col-md-8";
+            $lb_class = "form-check-label";
             while($row = $result->fetch(PDO::FETCH_NUM)) {
-                echo "<input type='checkbox' name='tables[$row[0]]'><label for='tables[$row[0]]'>$row[0]</label>";
+                echo "<input type='checkbox' class='$classes' name='tables[$row[0]]'><label class='$lb_class' for='tables[$row[0]]'>$row[0]</label>";
                 echo "<br/>";
-                $i++;
             }
         ?>
+        </div>
         <button type="submit" id="backup-submit" class="btn btn-primary">Submit</button>
-    </form
+    </form>
 <?php
     require_once 'footer.php';
 
