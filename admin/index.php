@@ -1,13 +1,6 @@
 <?php
-    session_save_path('../sessions');
-    session_start();
-
-    if(!isset($_SESSION['admin']) || !$_SESSION['admin']) {
-        header("Location: ../index.php");
-        exit();
-    }
-
     require_once "header.php";
+    
 ?>
 <div class="flex" style="display: flex;">
     <div id="games" style="padding: 20px;">

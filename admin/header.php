@@ -3,6 +3,11 @@
     session_save_path('../sessions/');
     session_start();
 
+    if(!isset($_SESSION['admin']) || !$_SESSION['admin']) {
+        header("Location: ../index.php");
+        exit();
+    }
+    
     require_once "../composer/vendor/autoload.php";
 
     $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . "/..");
