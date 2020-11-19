@@ -3,11 +3,6 @@
     require_once 'header.php';
     require_once '../composer/vendor/autoload.php';
 
-    if(!$_SESSION['admin']) {
-        header("Location: ../index.php");
-        exit();
-    }
-
     $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . "/..");
     $dotenv->load();
 

@@ -4,6 +4,14 @@ function removeAllChildNodes(parent) {
     }
 };
 
+// Function to test if any element meets filter
+jQuery.fn.any = function(filter) {
+    for(i = 0; i < this.length; i++) {
+        if( filter.call(this[i])) return true;
+    }
+    return false;
+}
+
 // Add game AJAX
 $(document).ready( function() {
     $('#addgame').click(function() {
@@ -78,4 +86,17 @@ $("#show-leaderboard").click(function() {
         }
     });
     leaderboard.style.display = "block";
+});
+
+// Admin player search
+$('#search-bar').on('input', function() {
+    var query = $(this)[0].value;
+    var elems = $('#players tr').filter( function(index, elem) {
+        var xp = new RegExp(query, 'i');
+        return xp.test($(elem)[0].innerText);
+        return $(elem).children().any( function(index, innerElem) {
+            return !xp.test($(innerElem).innerText);
+        });
+    });
+    console.log(elems);
 });
