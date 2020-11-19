@@ -12,6 +12,10 @@ jQuery.fn.any = function(filter) {
     return false;
 }
 
+// Sleep function
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+ }
 // Add game AJAX
 $(document).ready( function() {
     $('#addgame').click(function() {
@@ -88,15 +92,48 @@ $("#show-leaderboard").click(function() {
     leaderboard.style.display = "block";
 });
 
-// Admin player search
-$('#search-bar').on('input', function() {
-    var query = $(this)[0].value;
-    var elems = $('#players tr').filter( function(index, elem) {
-        var xp = new RegExp(query, 'i');
-        return xp.test($(elem)[0].innerText);
-        return $(elem).children().any( function(index, innerElem) {
-            return !xp.test($(innerElem).innerText);
-        });
-    });
-    console.log(elems);
+$(window).on('load',function() {
+    $('#loading').hide();
 });
+
+var admin_search = function() {
+    var query = document.getElementById("search-bar").value;
+    var players = document.getElementById('players');
+
+    // Hide leaderboard while changing content
+    $('#loading').show();
+
+    $.post('./includes/users.inc.php', {'query': query}, function(response) {
+        if( response['message'] === 'Success') {
+            players.innerHTML = "";
+
+            // Remove all child nodes
+            removeAllChildNodes(players);
+            // Create table row records and add to DOM
+            for(var player of response['content'] ) {
+                var row = document.createElement("tr");
+                var link = document.createElement('a');
+                link.href = './update_user.php?user=' + player['uid'];
+                link.target = '_blank';
+                link.innerText = player['username'];
+                var username = document.createElement("td");
+                username.appendChild(link);
+                var first_name = document.createElement("td");
+                first_name.innerText = player['first_name'];
+                var last_name = document.createElement("td");
+                last_name.innerText = player['last_name'];
+
+                row.appendChild(username);
+                row.appendChild(first_name);
+                row.appendChild(last_name);
+                players.appendChild(row);
+            }
+            $('#loading').hide();
+        }
+    });
+}
+
+// Admin player search
+$('#search-bar').on({input: admin_search});
+$(window).on('load', admin_search);
+
