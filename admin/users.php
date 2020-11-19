@@ -18,7 +18,7 @@
 </div>
 <div id="players-table">
     <div id="loading">
-        <img id="loading-image" src="../images/loading.gif" alt="Loading...">
+        <img id="loading-image" src="http://imgur.com/gallery/2xxRB1K" alt="Loading...">
     </div>
     <div id="pl-header">
     </div>
