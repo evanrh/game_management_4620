@@ -134,6 +134,6 @@ var admin_search = function() {
 }
 
 // Admin player search
-$('#search-bar').on({input: admin_search});
+$('#search-bar').on({keyup: admin_search});
 $(window).on('load', admin_search);
 
