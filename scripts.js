@@ -97,12 +97,23 @@ $(window).on('load',function() {
 });
 
 var admin_search = function() {
-    var query = document.getElementById("search-bar").value;
+    // Get query if it exists, else, don't run
+    var query = document.getElementById("search-bar");
+    if (query) {
+        query = query.value;
+    }
+    else {
+        return;
+    }
+    if (query === '') {
+        query = ".*";
+    }
     var players = document.getElementById('players');
 
-    // Hide leaderboard while changing content
+    // Show loading image while loading
     $('#loading').show();
 
+    // Async post to grab all users matching query
     $.post('./includes/users.inc.php', {'query': query}, function(response) {
         if( response['message'] === 'Success') {
             players.innerHTML = "";
@@ -133,7 +144,11 @@ var admin_search = function() {
     });
 }
 
+var searchTimeout;
 // Admin player search
-$('#search-bar').on({input: admin_search});
-$(window).on('load', admin_search);
+$('#search-bar').on('keyup', function(e) {
+    if (searchTimeout != undefined) clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(admin_search, 300);
+});
 
+window.onload = admin_search;

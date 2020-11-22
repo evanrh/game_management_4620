@@ -13,7 +13,7 @@
 <div id="player-search">
     <div class="row form-inline" style="padding-bottom: 10px;">
         <label class="form-label col-sm-2" for="search-bar">Search</label>
-        <input class="form-control col-sm-4" id="search-bar" type="text">
+        <input class="form-control col-sm-4" id="search-bar" type="text" placeholder="Search/Regex..." value=".*">
     </div>
 </div>
 <div id="players-table">
