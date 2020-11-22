@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.1
+-- version 4.6.6deb4+deb9u2
 -- https://www.phpmyadmin.net/
 --
--- Host: mysql-server
--- Generation Time: Oct 09, 2020 at 01:15 PM
--- Server version: 8.0.21
--- PHP Version: 7.4.1
+-- Host: localhost:3306
+-- Generation Time: Nov 22, 2020 at 12:19 AM
+-- Server version: 10.1.47-MariaDB-0+deb9u1
+-- PHP Version: 7.3.19-1~deb10u1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -29,9 +27,9 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `games` (
-  `gid` int NOT NULL,
+  `gid` int(11) NOT NULL,
   `title` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -40,15 +38,17 @@ CREATE TABLE `games` (
 --
 
 CREATE TABLE `players` (
-  `uid` int NOT NULL,
+  `uid` int(11) NOT NULL,
   `username` varchar(20) NOT NULL,
   `email` varchar(64) NOT NULL,
   `pwd` longtext NOT NULL,
   `first_name` tinytext,
   `last_name` tinytext,
   `phone` varchar(10) DEFAULT NULL,
-  `address` longtext
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `address` longtext,
+  `age` int(3) DEFAULT NULL,
+  `admin` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -57,10 +57,10 @@ CREATE TABLE `players` (
 --
 
 CREATE TABLE `scores` (
-  `sid` int NOT NULL,
-  `gid` varchar(255) NOT NULL,
-  `playerName` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `gid` int(11) NOT NULL,
+  `uid` int(11) NOT NULL,
+  `score` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Indexes for dumped tables
@@ -70,23 +70,22 @@ CREATE TABLE `scores` (
 -- Indexes for table `games`
 --
 ALTER TABLE `games`
-  ADD PRIMARY KEY (`gid`),
-  ADD UNIQUE KEY `title` (`title`);
+  ADD PRIMARY KEY (`gid`);
 
 --
 -- Indexes for table `players`
 --
 ALTER TABLE `players`
   ADD PRIMARY KEY (`uid`),
-  ADD UNIQUE KEY `username` (`username`,`email`);
+  ADD UNIQUE KEY `username` (`username`),
+  ADD UNIQUE KEY `email` (`email`);
 
 --
 -- Indexes for table `scores`
 --
 ALTER TABLE `scores`
-  ADD PRIMARY KEY (`sid`),
-  ADD KEY `gid` (`gid`),
-  ADD KEY `playerName` (`playerName`);
+  ADD PRIMARY KEY (`gid`,`uid`),
+  ADD KEY `uid` (`uid`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -96,20 +95,12 @@ ALTER TABLE `scores`
 -- AUTO_INCREMENT for table `games`
 --
 ALTER TABLE `games`
-  MODIFY `gid` int NOT NULL AUTO_INCREMENT;
-
+  MODIFY `gid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `players`
 --
 ALTER TABLE `players`
-  MODIFY `uid` int NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `scores`
---
-ALTER TABLE `scores`
-  MODIFY `sid` int NOT NULL AUTO_INCREMENT;
-
+  MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2652;
 --
 -- Constraints for dumped tables
 --
@@ -118,9 +109,8 @@ ALTER TABLE `scores`
 -- Constraints for table `scores`
 --
 ALTER TABLE `scores`
-  ADD CONSTRAINT `scores_ibfk_1` FOREIGN KEY (`gid`) REFERENCES `games` (`title`),
-  ADD CONSTRAINT `scores_ibfk_2` FOREIGN KEY (`playerName`) REFERENCES `players` (`username`);
-COMMIT;
+  ADD CONSTRAINT `scores_ibfk_1` FOREIGN KEY (`gid`) REFERENCES `games` (`gid`),
+  ADD CONSTRAINT `scores_ibfk_2` FOREIGN KEY (`uid`) REFERENCES `players` (`uid`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
