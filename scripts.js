@@ -146,14 +146,9 @@ var admin_search = function() {
 
 var searchTimeout;
 // Admin player search
-<<<<<<< HEAD
 $('#search-bar').on('keyup', function(e) {
     if (searchTimeout != undefined) clearTimeout(searchTimeout);
     searchTimeout = setTimeout(admin_search, 300);
 });
-=======
-$('#search-bar').on({keyup: admin_search});
-$(window).on('load', admin_search);
->>>>>>> d459187396ae625d4991828a5e574f66753f92e4
 
 window.onload = admin_search;
